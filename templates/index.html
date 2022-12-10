@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Scotts uppgift</title>
-    <script type="application/javascript" src="http://localhost:8000/js/fetcher.js"></script>
 
 </head>
 <body>
@@ -21,5 +20,11 @@
     <thead></thead>
     <tbody></tbody>
 </table>
+<!--<script src="http://localhost:8000/js/fetcher.js"></script-->
+{% block javascript %}
+    <script type="text/javascript">
+        {% include "fetcher.js" %}
+    </script>
+{% endblock %}
 </body>
 </html>
