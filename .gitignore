@@ -1,1 +1,4 @@
 .env
+/templates/jinja_cache_bucket/
+/test_main.py
+/common/test_util.py
