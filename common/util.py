@@ -21,6 +21,7 @@ db_connection = mysql.connector.connect(
 
 
 def _convert_dict_to_parsable_dict(result_dict: dict) -> dict[str, object]:
+    log.info(f"got data{result_dict}")
     return {
         "headers": list(result_dict.keys()),
         "data": list(result_dict.values())

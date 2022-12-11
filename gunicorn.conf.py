@@ -1,8 +1,5 @@
 import multiprocessing
 
-
 reload = True
-
-timeout = 0
-
+timeout = 1
 worker = 2

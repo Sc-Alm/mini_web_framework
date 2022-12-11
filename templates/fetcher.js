@@ -8,40 +8,45 @@ async function loadIntoTable(url, table) {
 
 function setupTableHeaders(table, headers) {
     const tableHead = table.querySelector("thead");
-    tableHead.innerHTML = "<tr></tr>";
+    let html = "<tr>";
     for (let headerText of headers) {
-        const headerElement = document.createElement("th");
-        headerElement.textContent = headerText;
-        tableHead.querySelector("tr").appendChild(headerElement);
+        html += `<th>${headerText}`
     }
+    html += "</tr>";
+    tableHead.innerHTML = html
 }
 
 function setupTableBody(table, data) {
     const tableBody = table.querySelector("tbody");
-    tableBody.innerHTML = "";
-    const rowElement = document.createElement("tr");
-    setupCellText(rowElement, data)
-    tableBody.appendChild(rowElement);
+    let html = ""
+    data.forEach(row => {
+        html += "<tr>"
+        html += setupCellText(row)
+        html += "</tr>"
+    })
+    tableBody.innerHTML = html;
 }
 
-function setupCellText(rowElement, data) {
-    for (let cellText of data) {
-        const cellElement = document.createElement("td");
-        cellElement.textContent = cellText
-        rowElement.appendChild(cellElement);
-    }
+function setupCellText(row) {
+    let html = ""
+    row.forEach(cell=>{
+       html+= `<td>${cell}</td>`
+    })
+
+    return html
 }
 
 
 function fetchPhoneData() {
     console.log("Getting Car Data")
-    loadIntoTable("http://localhost:8000/api/task/1",
-        document.querySelector(".phoneTable"))
+    loadIntoTable("http://localhost:8000/api/task/1", document.querySelector(".phoneTable"))
 }
 
 function fetchCarData() {
     console.log("Getting Car Data")
-    loadIntoTable("http://localhost:8000/api/task/2",
+    let car_rent_from_date = document.getElementById("car_rent_from_date")
+    let car_rent_to_date = document.getElementById("car_rent_to_date")
+    loadIntoTable(`http://localhost:8000/api/task/2/${car_rent_from_date}-${car_rent_to_date}`,
         document.querySelector(".carTable"))
 
 }

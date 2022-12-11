@@ -3,14 +3,19 @@ from typing import Dict
 from common.util import db_connection, _convert_dict_to_parsable_dict
 
 SELECT_STATEMENT_CAR_TEMPLATE = """
-SELECT * FROM(
-SELECT C.CarId FROM (
-SELECT ColorId FROM booking.Color
-WHERE ColorName LIKE 'Blue') AS CN
-INNER JOIN booking.Car C ON C.ColorId = CN.ColorId) AS  CC
-INNER JOIN booking.CustomerRental CR ON CR.CarId = CC.CarId
-WHERE CR.RentFrom BETWEEN '{from_date}' AND '{to_date}'
-OR CR.RentTo BETWEEN '{from_date}' AND '{to_date}'
+select * from(
+select
+    a.CarId,
+    C.ColorId,
+    a.RegistrationNumber,
+    a.Milage
+from Car a
+inner join Color C on a.ColorId = C.ColorId
+where C.ColorName like 'Blue') as BC
+left join CustomerRental CR on BC.CarId = CR.CarId
+WHERE RentFrom not BETWEEN '{from_date}' AND '{to_date}'
+and RentTo not BETWEEN '{from_date}' AND '{to_date}'
+or RentFrom is null;
 """
 
 
@@ -19,8 +24,15 @@ def _get_select_statement_for_rented_cars_between(from_date: str, to_date: str) 
 
 
 def get_cars_rented_between(from_date: str, to_date: str) -> dict[str, object]:
+    result = None
     with db_connection.cursor(dictionary=True) as cursor:
         cursor.execute(SELECT_STATEMENT_CAR_TEMPLATE.format(from_date=from_date, to_date=to_date))
-        for result in cursor.fetchall():
-            return _convert_dict_to_parsable_dict(result)
-
+        for data in cursor.fetchall():
+            if result is None:
+                result = {
+                    'headers': list(data.keys()),
+                    'data': [list(data.values())]
+                }
+            else:
+                result['data'].append(list(data.values()))
+        return result

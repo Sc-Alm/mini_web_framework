@@ -11,10 +11,14 @@
 <button onclick="fetchPhoneData()">Get Phone Data</button>
 <table class="phoneTable" border="1">
     <thead></thead>
-    <tbody ></tbody>
+    <tbody></tbody>
 </table>
 
 <h2>Endpoint #2</h2>
+<div>
+    <input type="date" id="car_rent_from_date"/>
+    <input type="date" id="car_rent_to_date"/>
+</div>
 <button onclick="fetchCarData()">Get rental data</button>
 <table class="carTable" border="1">
     <thead></thead>
@@ -22,9 +26,9 @@
 </table>
 <!--<script src="http://localhost:8000/js/fetcher.js"></script-->
 {% block javascript %}
-    <script type="text/javascript">
-        {% include "fetcher.js" %}
-    </script>
+<script type="text/javascript">
+    {%include "fetcher.js" %}
+</script>
 {% endblock %}
 </body>
 </html>
