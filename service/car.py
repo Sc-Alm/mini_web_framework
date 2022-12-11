@@ -1,6 +1,4 @@
-from typing import Dict
-
-from common.util import db_connection, _convert_dict_to_parsable_dict
+from common.util import db_connection, extract_data_from_cursor
 
 SELECT_STATEMENT_CAR_TEMPLATE = """
 select * from(
@@ -24,15 +22,6 @@ def _get_select_statement_for_rented_cars_between(from_date: str, to_date: str) 
 
 
 def get_cars_rented_between(from_date: str, to_date: str) -> dict[str, object]:
-    result = None
     with db_connection.cursor(dictionary=True) as cursor:
         cursor.execute(SELECT_STATEMENT_CAR_TEMPLATE.format(from_date=from_date, to_date=to_date))
-        for data in cursor.fetchall():
-            if result is None:
-                result = {
-                    'headers': list(data.keys()),
-                    'data': [list(data.values())]
-                }
-            else:
-                result['data'].append(list(data.values()))
-        return result
+        return extract_data_from_cursor(cursor)
