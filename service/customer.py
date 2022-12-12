@@ -1,4 +1,4 @@
-from common.util import db_connection, extract_data_from_cursor
+from common.util import extract_data_from_cursor, get_db_connection
 
 SELECT_STATEMENT_PHONE_TEMPLATE = """
 SELECT * FROM (
@@ -12,6 +12,6 @@ WHERE CT.cnt > 1 AND PhoneType = '{phone_type}';
 
 
 def get_customers_that_has_cellphones(phone_type: str) -> dict[str, object]:
-    with db_connection.cursor(dictionary=True) as cursor:
+    with get_db_connection().cursor(dictionary=True) as cursor:
         cursor.execute(SELECT_STATEMENT_PHONE_TEMPLATE.format(phone_type=phone_type))
         return extract_data_from_cursor(cursor)

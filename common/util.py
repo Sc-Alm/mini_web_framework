@@ -11,13 +11,24 @@ log = logging.getLogger(__file__)
 
 load_dotenv()
 
+DB_CONNECTION = None
+
+
+def get_db_connection():
+    global DB_CONNECTION
+    if not DB_CONNECTION:
+        DB_CONNECTION = connect_to_db()
+    return DB_CONNECTION
+
+
 # Database connector
-db_connection = mysql.connector.connect(
-    host=os.getenv('HOST'),
-    database=os.getenv('DATABASE'),
-    user=os.getenv('ROOT'),
-    passwd=os.getenv('PASS'),
-)
+def connect_to_db():
+    return mysql.connector.connect(
+        host=os.getenv('HOST'),
+        database=os.getenv('DATABASE'),
+        user=os.getenv('ROOT'),
+        passwd=os.getenv('PASS'),
+    )
 
 
 def extract_data_from_cursor(cursor) -> dict[str, object]:
