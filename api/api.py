@@ -7,13 +7,11 @@ class API:
         self.routes = {}
 
     def __call__(self, environ, start_response):
-        print('+++++++++++++++++++++++++Got request++++++++++++')
         request = Request(environ)
         response = self.handel_request(request)
         return response(environ, start_response)
 
     def handel_request(self, request):
-        print(f"Request is {request.path}")
         response = Response()
         handler, args = self.find_handler(request_path=request.path)
         if handler is not None:
