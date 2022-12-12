@@ -1,13 +1,13 @@
 from common.util import db_connection, extract_data_from_cursor
 
 SELECT_STATEMENT_PHONE_TEMPLATE = """
-select * from (
-	select CustomerId, count(PhoneId) as cnt from CustomerPhone group by CustomerId
-) as CT
+SELECT * FROM (
+	SELECT CustomerId, COUNT(PhoneId) AS cnt FROM CustomerPhone GROUP BY CustomerId
+) AS CT
 INNER JOIN CustomerPhone C ON C.CustomerId = CT.CustomerId
 INNER JOIN Phone P ON P.PhoneId = C.PhoneId
-INNER JOIN Customer CU on CU.CustomerId = C.CustomerId
-where CT.cnt > 1 and PhoneType = '{phone_type}';
+INNER JOIN Customer CU ON CU.CustomerId = C.CustomerId
+WHERE CT.cnt > 1 AND PhoneType = '{phone_type}';
 """
 
 

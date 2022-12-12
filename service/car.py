@@ -1,19 +1,19 @@
 from common.util import db_connection, extract_data_from_cursor
 
 SELECT_STATEMENT_CAR_TEMPLATE = """
-select * from(
-select
-    a.CarId,
+SELECT * FROM(
+SELECT 
+    A.CarId,
     C.ColorId,
-    a.RegistrationNumber,
-    a.Milage
-from Car a
-inner join Color C on a.ColorId = C.ColorId
-where C.ColorName like 'Blue') as BC
-left join CustomerRental CR on BC.CarId = CR.CarId
-WHERE RentFrom not BETWEEN '{from_date}' AND '{to_date}'
-and RentTo not BETWEEN '{from_date}' AND '{to_date}'
-or RentFrom is null;
+    A.RegistrationNumber,
+    A.Milage
+FROM Car A
+INNER JOIN Color C on A.ColorId = C.ColorId
+WHERE C.ColorName LIKE 'Blue') AS BC
+LEFT JOIN CustomerRental CR ON BC.CarId = CR.CarId
+WHERE RentFrom NOT BETWEEN '{from_date}' AND '{to_date}'
+and RentTo NOT BETWEEN '{from_date}' AND '{to_date}'
+OR RentFrom IS null;
 """
 
 

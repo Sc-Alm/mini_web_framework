@@ -29,8 +29,8 @@ function setupTableBody(table, data) {
 
 function setupCellText(row) {
     let html = ""
-    row.forEach(cell=>{
-       html+= `<td>${cell}</td>`
+    row.forEach(cell => {
+        html += `<td>${cell}</td>`
     })
 
     return html
