@@ -44,9 +44,9 @@ function fetchPhoneData() {
 
 function fetchCarData() {
     console.log("Getting Car Data")
-    let car_rent_from_date = document.getElementById("car_rent_from_date")
-    let car_rent_to_date = document.getElementById("car_rent_to_date")
-    loadIntoTable(`http://localhost:8000/api/task/2/${car_rent_from_date}-${car_rent_to_date}`,
+    let car_rent_from_date = document.getElementById("car_rent_from_date").value
+    let car_rent_to_date = document.getElementById("car_rent_to_date").value
+    loadIntoTable(`http://localhost:8000/api/task/2/${car_rent_from_date}@${car_rent_to_date}`,
         document.querySelector(".carTable"))
 
 }

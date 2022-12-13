@@ -1,7 +1,6 @@
 import json
 import os
-import timeit
-import time
+import uwsgidecorators
 import jinja2
 from dotenv import load_dotenv
 from webob import Request, Response
@@ -28,7 +27,7 @@ def homepage(request: Request, response: Response):
     response.content_type = "text/html"
 
 
-@app.route("/api/task/2/{from_date}-{to_date}")
+@app.route("/api/task/2/{from_date}@{to_date}")
 def get_rented_cars(request: Request, response: Response, from_date, to_date):
     log.info(f"started transfer of data{from_date}-{to_date}")
     response.json = json.dumps(car.get_cars_rented_between(from_date, to_date), default=str)

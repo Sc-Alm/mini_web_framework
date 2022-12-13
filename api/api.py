@@ -1,21 +1,23 @@
 from parse import parse
 from webob import Request, Response
 
+from api.request_handler import RequestHandler
+
 
 class API:
     def __init__(self):
         self.routes = {}
 
     def __call__(self, environ, start_response):
-        request = Request(environ)
-        response = self.handel_request(request)
+        request_handler = RequestHandler(environ)
+        response = self.handel_request(request_handler)
         return response(environ, start_response)
 
     def handel_request(self, request):
         response = Response()
         handler, args = self.find_handler(request_path=request.path)
         if handler is not None:
-            handler(request, response, **args)
+            handler(request, response, *args)
         else:
             self.defalut_response(response)
         return response
