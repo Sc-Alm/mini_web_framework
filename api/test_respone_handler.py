@@ -14,4 +14,4 @@ class TestResponseHandler(TestCase):
         self.response_handler.set_headers(TEST_HEADERS)
 
     def test__get_header_dict(self):
-        print(self.response_handler._get_header_dict())
+        print(self.response_handler._get_header_list())

@@ -1,9 +1,8 @@
 async function loadIntoTable(url, table) {
     const response = await fetch(url);
     const data = await response.json();
-    let jsonData = JSON.parse(data);
-    setupTableHeaders(table, jsonData.headers);
-    setupTableBody(table, jsonData.data);
+    setupTableHeaders(table, data.headers);
+    setupTableBody(table, data.data);
 }
 
 function setupTableHeaders(table, headers) {

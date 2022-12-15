@@ -1,7 +1,7 @@
 from parse import parse
-from webob import Request, Response
 
 from api.request_handler import RequestHandler
+from api.respone_handler import ResponseHandler
 
 
 class API:
@@ -14,7 +14,7 @@ class API:
         return response(environ, start_response)
 
     def handel_request(self, request):
-        response = Response()
+        response = ResponseHandler()
         handler, args = self.find_handler(request_path=request.path)
         if handler is not None:
             handler(request, response, *args)
@@ -29,9 +29,9 @@ class API:
 
         return wrapper
 
-    def defalut_response(self, response):
+    def defalut_response(self, response: ResponseHandler):
         response.status_code = 404
-        response.text = "Page not found"
+        response.set_body = "Page can't load"
 
     def find_handler(self, request_path):
         for path, handler, in self.routes.items():

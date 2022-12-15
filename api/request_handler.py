@@ -2,7 +2,6 @@ class RequestHandler:
 
     def __init__(self, environment):
         self.environment = environment
-        print(environment)
 
     @property
     def path(self):
