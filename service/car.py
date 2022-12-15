@@ -12,7 +12,7 @@ INNER JOIN Color C on A.ColorId = C.ColorId
 WHERE C.ColorName LIKE 'Blue') AS BC
 LEFT JOIN CustomerRental CR ON BC.CarId = CR.CarId
 WHERE RentFrom NOT BETWEEN '{from_date}' AND '{to_date}'
-and RentTo NOT BETWEEN '{from_date}' AND '{to_date}'
+AND RentTo NOT BETWEEN '{from_date}' AND '{to_date}'
 OR RentFrom IS NULL;
 """
 
