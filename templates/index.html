@@ -20,11 +20,19 @@
     <input type="date" id="car_rent_to_date" value="2013-03-20"/>
 </div>
 <button onclick="fetchCarData()">Get rental data</button>
+<label for="car_colour">Select what car colour you want: </label>
+<select id="car_colour">
+    <option value="Red">Red</option>
+    <option value="Blue">Blue</option>
+    <option value="Green">Green</option>
+    <option value="White">White</option>
+    <option value="Purple">Purple</option>
+    <option value="Yellow">Yellow</option>
+</select>
 <table class="carTable" border="1">
     <thead></thead>
     <tbody></tbody>
 </table>
-<!--<script src="http://localhost:8000/js/fetcher.js"></script-->
 {% block javascript %}
 <script type="text/javascript">
     {%include "fetcher.js" %}

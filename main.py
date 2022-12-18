@@ -21,10 +21,11 @@ def homepage(request: RequestHandler, response: ResponseHandler):
     response.set_header(header="Content-Type: text/html")
 
 
-@app.route("/api/task/2/{from_date}@{to_date}")
-def get_rented_cars(request: RequestHandler, response: ResponseHandler, from_date, to_date):
-    log.info(f"started transfer of data{from_date}-{to_date}")
-    response.set_json_body(json_body=car.get_cars_rented_between(from_date, to_date))
+@app.route("/api/task/2/{from_date}@{to_date}@{car_colour}")
+def get_rented_cars(request: RequestHandler, response: ResponseHandler, from_date: str, to_date: str, car_colour: str):
+    log.info(f"started transfer of data: {from_date}-{to_date} and ")
+    response.set_json_body(
+        json_body=car.get_cars_rented_between(from_date=from_date, to_date=to_date, car_colour=car_colour))
     response.set_header(header="Content-Type:application/json")
 
 

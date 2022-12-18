@@ -15,9 +15,9 @@ class API:
 
     def handel_request(self, request):
         response = ResponseHandler()
-        handler, args = self.find_handler(request_path=request.path)
+        handler, kwargs = self.find_handler(request_path=request.path)
         if handler is not None:
-            handler(request, response, *args)
+            handler(request, response, **kwargs)
         else:
             self.defalut_response(response)
         return response
