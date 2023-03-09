@@ -4,6 +4,11 @@ from api.request_handler import RequestHandler
 from api.respone_handler import ResponseHandler
 
 
+def default_response(response: ResponseHandler):
+    response.status_code = 404
+    response.set_body = "Page can't load"
+
+
 class API:
     def __init__(self):
         self.routes = {}
@@ -19,7 +24,7 @@ class API:
         if handler is not None:
             handler(request, response, **kwargs)
         else:
-            self.defalut_response(response)
+            default_response(response)
         return response
 
     def route(self, path):
@@ -28,10 +33,6 @@ class API:
             return handler
 
         return wrapper
-
-    def defalut_response(self, response: ResponseHandler):
-        response.status_code = 404
-        response.set_body = "Page can't load"
 
     def find_handler(self, request_path):
         for path, handler, in self.routes.items():
